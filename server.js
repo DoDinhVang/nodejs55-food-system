@@ -12,8 +12,15 @@ app.use(morgan("dev"));
 //routes
 const foodRoutes = require("./routes/foodRoutes");
 const statsRoutes = require("./routes/statsRoutes");
+const likeRoutes = require("./routes/likeRoutes");
+const ratingRoutes = require("./routes/ratingRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+
 app.use("/api/foods", foodRoutes);
 app.use("/api/stats", statsRoutes);
+app.use("/api/likes", likeRoutes);
+app.use("/api/ratings", ratingRoutes);
+app.use("/api/orders", orderRoutes);
 
 //port
 const PORT = process.env.PORT || 8000;

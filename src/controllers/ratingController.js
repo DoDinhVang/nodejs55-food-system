@@ -1,5 +1,5 @@
-import db from "../config/db.js";
-import { success, error } from "../utils/response.js";
+import db from "~/config/db.js";
+import { success, error } from "~/utils/response.js";
 
 /**
  * Thêm hoặc cập nhật đánh giá nhà hàng

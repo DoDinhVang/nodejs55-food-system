@@ -1,5 +1,5 @@
-import db from "../config/db.js";
-import { success, error } from "../utils/response.js";
+import db from "~/config/db.js";
+import { success, error } from "~/utils/response.js";
 
 /**
  * Tìm 5 người đã like nhà hàng nhiều nhất

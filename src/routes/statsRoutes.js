@@ -4,7 +4,7 @@ import {
   getTop2RestaurantsMostLikes,
   getUserMostOrders,
   getInactiveUsers,
-} from "../controllers/statsController.js";
+} from "~/controllers/statsController.js";
 const router = express.Router();
 
 router.get("/top-like-user", getTop5UsersMostLikes);

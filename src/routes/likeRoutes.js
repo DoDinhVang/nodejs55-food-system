@@ -4,7 +4,7 @@ import {
   unlikeRestaurant,
   getLikesByRestaurant,
   getLikesByUser,
-} from "../controllers/likeController.js";
+} from "~/controllers/likeController.js";
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
-const db = require("../config/db");
-const { success, error } = require("../utils/response");
+import db from "../config/db.js";
+import { success, error } from "../utils/response.js";
 
 /**
  * Tìm 5 người đã like nhà hàng nhiều nhất
@@ -99,7 +99,7 @@ const getInactiveUsers = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getTop5UsersMostLikes,
   getTop2RestaurantsMostLikes,
   getUserMostOrders,

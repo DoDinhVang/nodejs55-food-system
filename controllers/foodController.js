@@ -1,5 +1,5 @@
-const db = require("../config/db");
-const { success, error } = require("../utils/response");
+import db from "../config/db.js";
+import { success, error } from "../utils/response.js";
 
 const getFoods = async (req, res) => {
   try {
@@ -11,6 +11,6 @@ const getFoods = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getFoods,
 };

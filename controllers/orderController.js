@@ -1,5 +1,5 @@
-const db = require("../config/db");
-const { success, error } = require("../utils/response");
+import db from "../config/db.js";
+import { success, error } from "../utils/response.js";
 
 /**
  * Thêm đơn đặt món (Order)
@@ -73,6 +73,6 @@ const addOrder = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   addOrder,
 };

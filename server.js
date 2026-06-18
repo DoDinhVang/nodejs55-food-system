@@ -1,8 +1,6 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const morgan = require("morgan");
-const mysqlPool = require("./config/db");
-dotenv.config();
+import express from "express";
+import morgan from "morgan";
+import mysqlPool from "./config/db.js";
 const app = express();
 
 //middleware
@@ -10,11 +8,12 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
-const foodRoutes = require("./routes/foodRoutes");
-const statsRoutes = require("./routes/statsRoutes");
-const likeRoutes = require("./routes/likeRoutes");
-const ratingRoutes = require("./routes/ratingRoutes");
-const orderRoutes = require("./routes/orderRoutes");
+import foodRoutes from "./routes/foodRoutes.js";
+import statsRoutes from "./routes/statsRoutes.js";
+import likeRoutes from "./routes/likeRoutes.js";
+import ratingRoutes from "./routes/ratingRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import { env } from "./config/environment.js";
 
 app.use("/api/foods", foodRoutes);
 app.use("/api/stats", statsRoutes);
@@ -23,7 +22,7 @@ app.use("/api/ratings", ratingRoutes);
 app.use("/api/orders", orderRoutes);
 
 //port
-const PORT = process.env.PORT || 8000;
+const PORT = env.PORT || 8000;
 
 //listen
 mysqlPool

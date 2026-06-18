@@ -1,10 +1,10 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   likeRestaurant,
   unlikeRestaurant,
   getLikesByRestaurant,
   getLikesByUser,
-} = require("../controllers/likeController");
+} from "../controllers/likeController.js";
 
 const router = express.Router();
 
@@ -13,4 +13,4 @@ router.delete("/", unlikeRestaurant);
 router.get("/restaurant/:res_id", getLikesByRestaurant);
 router.get("/user/:user_id", getLikesByUser);
 
-module.exports = router;
+export default router;

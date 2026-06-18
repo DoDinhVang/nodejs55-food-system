@@ -1,5 +1,5 @@
-const db = require("../config/db");
-const { success, error } = require("../utils/response");
+import db from "../config/db.js";
+import { success, error } from "../utils/response.js";
 
 /**
  * Xử lý like nhà hàng
@@ -171,7 +171,7 @@ const getLikesByUser = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   likeRestaurant,
   unlikeRestaurant,
   getLikesByRestaurant,

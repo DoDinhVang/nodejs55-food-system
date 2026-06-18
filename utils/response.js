@@ -1,12 +1,10 @@
-const success = (message, data = null) => ({
+export const success = (message, data = null) => ({
   success: true,
   message,
   data,
 });
 
-const error = (message) => ({
+export const error = (message) => ({
   success: false,
   message,
 });
-
-module.exports = { success, error };

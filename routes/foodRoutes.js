@@ -1,6 +1,6 @@
-const exporess = require("express");
-const { getFoods } = require("../controllers/foodController");
-const router = exporess.Router();
+import express from "express";
+import { getFoods } from "../controllers/foodController.js";
+const router = express.Router();
 
 router.get("/getall", getFoods);
-module.exports = router;
+export default router;

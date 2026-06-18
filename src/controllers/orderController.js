@@ -6,13 +6,19 @@ import { success, error } from "~/utils/response.js";
  * POST /api/orders
  * Body: { user_id, food_id, amount, code, arr_sub_id }
  */
-const addOrder = async (req, res) => {
+const addOrder = async (req, res, next) => {
   try {
     const { user_id, food_id, amount, code, arr_sub_id } = req.body;
 
     // Validate inputs
-    if (user_id === undefined || food_id === undefined || amount === undefined) {
-      return res.status(400).json(error("Thiếu thông tin user_id, food_id hoặc amount"));
+    if (
+      user_id === undefined ||
+      food_id === undefined ||
+      amount === undefined
+    ) {
+      return res
+        .status(400)
+        .json(error("Thiếu thông tin user_id, food_id hoặc amount"));
     }
 
     const userId = parseInt(user_id, 10);
@@ -20,21 +26,31 @@ const addOrder = async (req, res) => {
     const orderAmount = parseInt(amount, 10);
 
     if (isNaN(userId) || isNaN(foodId) || isNaN(orderAmount)) {
-      return res.status(400).json(error("Các thông số user_id, food_id và amount phải là số hợp lệ"));
+      return res
+        .status(400)
+        .json(
+          error("Các thông số user_id, food_id và amount phải là số hợp lệ"),
+        );
     }
 
     if (orderAmount <= 0) {
-      return res.status(400).json(error("Số lượng đặt món (amount) phải lớn hơn 0"));
+      return res
+        .status(400)
+        .json(error("Số lượng đặt món (amount) phải lớn hơn 0"));
     }
 
     // Kiểm tra user có tồn tại không
-    const [users] = await db.query("SELECT * FROM user WHERE user_id = ?", [userId]);
+    const [users] = await db.query("SELECT * FROM user WHERE user_id = ?", [
+      userId,
+    ]);
     if (users.length === 0) {
       return res.status(404).json(error("Người dùng không tồn tại"));
     }
 
     // Kiểm tra món ăn (food) có tồn tại không
-    const [foods] = await db.query("SELECT * FROM food WHERE food_id = ?", [foodId]);
+    const [foods] = await db.query("SELECT * FROM food WHERE food_id = ?", [
+      foodId,
+    ]);
     if (foods.length === 0) {
       return res.status(404).json(error("Món ăn không tồn tại"));
     }
@@ -54,7 +70,7 @@ const addOrder = async (req, res) => {
     // Thực hiện lưu đơn hàng
     const [result] = await db.query(
       "INSERT INTO `order` (user_id, food_id, amount, code, arr_sub_id) VALUES (?, ?, ?, ?, ?)",
-      [userId, foodId, orderAmount, orderCode, arrSubId]
+      [userId, foodId, orderAmount, orderCode, arrSubId],
     );
 
     return res.status(201).json(
@@ -65,14 +81,11 @@ const addOrder = async (req, res) => {
         amount: orderAmount,
         code: orderCode,
         arr_sub_id: arrSubId,
-      })
+      }),
     );
   } catch (err) {
-    console.error(err);
-    return res.status(500).json(error("Lỗi hệ thống khi đặt món ăn"));
+    next(err);
   }
 };
 
-export {
-  addOrder,
-};
+export { addOrder };

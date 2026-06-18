@@ -6,7 +6,7 @@ import { success, error } from "~/utils/response.js";
  * @param {*} req
  * @param {*} res
  */
-const getTop5UsersMostLikes = async (req, res) => {
+const getTop5UsersMostLikes = async (req, res, next) => {
   try {
     const [rows] = await db.query(`
       SELECT u.full_name, COUNT(l.res_id) AS like_count
@@ -18,10 +18,7 @@ const getTop5UsersMostLikes = async (req, res) => {
     `);
     res.status(200).json(success("Top 5 người like nhà hàng nhiều nhất", rows));
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json(error("Lỗi khi lấy top 5 người like nhà hàng nhiều nhất"));
+    next(err);
   }
 };
 
@@ -30,7 +27,7 @@ const getTop5UsersMostLikes = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const getTop2RestaurantsMostLikes = async (req, res) => {
+const getTop2RestaurantsMostLikes = async (req, res, next) => {
   try {
     const [rows] = await db.query(`
       SELECT r.res_name, COUNT(l.user_id) AS like_count
@@ -44,10 +41,7 @@ const getTop2RestaurantsMostLikes = async (req, res) => {
       .status(200)
       .json(success("Top 2 nhà hàng có lượt like nhiều nhất", rows));
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json(error("Lỗi khi lấy top 2 nhà hàng có lượt like nhiều nhất"));
+    next(err);
   }
 };
 
@@ -56,7 +50,7 @@ const getTop2RestaurantsMostLikes = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const getUserMostOrders = async (req, res) => {
+const getUserMostOrders = async (req, res, next) => {
   try {
     const [rows] = await db.query(`
       SELECT u.full_name, COUNT(o.order_id) AS order_count
@@ -68,8 +62,7 @@ const getUserMostOrders = async (req, res) => {
     `);
     res.status(200).json(success("Người đặt hàng nhiều nhất", rows));
   } catch (err) {
-    console.error(err);
-    res.status(500).json(error("Lỗi khi lấy người đặt hàng nhiều nhất"));
+    next(err);
   }
 };
 
@@ -78,7 +71,7 @@ const getUserMostOrders = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const getInactiveUsers = async (req, res) => {
+const getInactiveUsers = async (req, res, next) => {
   try {
     const [rows] = await db.query(`
       SELECT u.user_id, u.full_name
@@ -92,10 +85,7 @@ const getInactiveUsers = async (req, res) => {
     `);
     res.status(200).json(success("Danh sách người dùng không hoạt động", rows));
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json(error("Lỗi khi lấy danh sách người dùng không hoạt động"));
+    next(err);
   }
 };
 
